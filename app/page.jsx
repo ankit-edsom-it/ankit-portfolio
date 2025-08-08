@@ -55,7 +55,10 @@ const experiences = [
 
 const skills = [
   'React.js','Next.js','Tailwind CSS','Formik','Material UI','Node.js',
-  'Express','MySQL','PostgreSQL','TypeScript','Redux','Git','Framer Motion'
+  'Express','MySQL','PostgreSQL','TypeScript','Redux','Git','Framer Motion', 'Vercel',
+  'REST APIs','GraphQL','MongoDB','HTML5','CSS3','JavaScript','Responsive Design',
+  'Agile Methodologies','Problem Solving','Team Collaboration','Communication',
+  'Version Control','Testing & Debugging','UI/UX Design Principles'
 ]
 
 export default function Home() {
