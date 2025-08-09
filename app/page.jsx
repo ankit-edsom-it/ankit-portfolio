@@ -64,7 +64,7 @@ const skills = [
 export default function Home() {
   return (
     <motion.div initial="hidden" animate="show" variants={stagger}>
-      <motion.section variants={fadeInUp} className="grid md:grid-cols-3 gap-6 items-center mb-16">
+      <motion.section variants={fadeInUp} className="grid md:grid-cols-3 gap-6 items-center mb-16 mt-16">
         <div className="md:col-span-2">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">Ankit Kumar</h1>
           <p className="text-slate-600 mt-3 text-lg">Software Developer (React) — building scalable UIs & fintech integrations.</p>
@@ -74,7 +74,7 @@ export default function Home() {
           </div>
         </div>
         <motion.div whileHover={{ scale: 1.05 }} className="flex justify-center">
-          <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="avatar" className="w-40 h-40 rounded-full object-cover shadow-lg" />
+          <img src='/profile.jpg' alt="avatar" className="w-40 h-40 rounded-full object-cover shadow-lg" />
         </motion.div>
       </motion.section>
 
