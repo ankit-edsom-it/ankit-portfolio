@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 
@@ -8,6 +8,8 @@ export default function Navbar() {
   const [shadow, setShadow] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollYRef = useRef(0);
+  const [progressWidth, setProgressWidth] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
@@ -15,17 +17,30 @@ export default function Navbar() {
       setShadow(currentScrollY > 10);
 
       // Hide navbar when scrolling down, show when scrolling up
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
+
+      lastScrollYRef.current = currentScrollY;
       setLastScrollY(currentScrollY);
+
+      const documentElement = document.documentElement;
+      const totalScrollable =
+        documentElement.scrollHeight - window.innerHeight;
+      const percentage =
+        totalScrollable > 0
+          ? Math.min((currentScrollY / totalScrollable) * 100, 100)
+          : 0;
+      setProgressWidth(percentage);
     };
 
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Initialize on mount to set initial progress
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const navItems = [
     { href: "#experience", label: "Experience" },
@@ -127,14 +142,7 @@ export default function Navbar() {
         <motion.div
           className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-sky-400 to-indigo-600"
           initial={{ width: "0%" }}
-          animate={{
-            width: `${Math.min(
-              (lastScrollY /
-                (document.documentElement.scrollHeight - window.innerHeight)) *
-                100,
-              100
-            )}%`,
-          }}
+          animate={{ width: `${progressWidth}%` }}
           transition={{ duration: 0.1 }}
         />
       </motion.header>
