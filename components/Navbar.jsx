@@ -49,6 +49,7 @@ export default function Navbar() {
     { href: "#contact", label: "Contact" },
   ];
   console.log("navItems", navItems);
+  console.log("navItems", navItems);
 
   return (
     <AnimatePresence>
