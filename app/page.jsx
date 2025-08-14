@@ -256,7 +256,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
           >
-            Software Developer (React) — building scalable UIs & fintech integrations.
+            Software Developer — building scalable UIs & fintech integrations.
           </motion.p>
           
           {/* Stats Counter */}
@@ -272,13 +272,13 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-indigo-600">
-                <AnimatedCounter end={10} />+
+                <AnimatedCounter end={7} />+
               </div>
               <div className="text-sm text-slate-500">Projects</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600">
-                <AnimatedCounter end={25} />+
+                <AnimatedCounter end={12} />+
               </div>
               <div className="text-sm text-slate-500">Technologies</div>
             </div>

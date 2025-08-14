@@ -125,7 +125,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Button as="a" href="/Ankit-Kumar-Resume.pdf" download>
+            <Button as="a" href="/AnkitResume.pdf" download>
               <motion.span className="flex items-center gap-2">
                 <motion.span
                   animate={{ rotate: [0, 10, 0] }}
