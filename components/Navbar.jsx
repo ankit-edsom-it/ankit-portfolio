@@ -10,6 +10,7 @@ export default function Navbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const lastScrollYRef = useRef(0);
   const [progressWidth, setProgressWidth] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -42,14 +43,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const navItems = [
     { href: "#experience", label: "Experience" },
     { href: "#projects", label: "Projects" },
     { href: "#skills", label: "Skills" },
     { href: "#contact", label: "Contact" },
   ];
-  console.log("navItems", navItems);
-  console.log("navItems", navItems);
 
   return (
     <AnimatePresence>
@@ -137,6 +148,20 @@ export default function Navbar() {
               </motion.span>
             </Button>
           </motion.div>
+
+          {/* Mobile: Hamburger Menu Button */}
+          <div className="md:hidden">
+            <button
+              type="button"
+              aria-label="Open menu"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/80 p-2 text-slate-700 shadow-sm hover:bg-white hover:shadow transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path fillRule="evenodd" d="M3.75 5.25a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Progress Bar */}
@@ -147,6 +172,71 @@ export default function Navbar() {
           transition={{ duration: 0.1 }}
         />
       </motion.header>
+
+      {/* Mobile Sidebar Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            <motion.div
+              key="overlay"
+              className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <motion.aside
+              key="sidebar"
+              className="fixed top-0 right-0 h-full w-72 max-w-[85vw] bg-white z-[60] shadow-xl p-6 flex flex-col"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <span className="font-bold text-lg bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">Menu</span>
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="rounded-lg p-2 text-slate-600 hover:bg-slate-100"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+
+              <nav className="flex flex-col gap-4">
+                {navItems.map((item, index) => (
+                  <motion.a
+                    key={item.href}
+                    href={item.href}
+                    className="text-slate-700 hover:text-sky-600 font-medium text-base"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2, delay: 0.03 * (index + 1) }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </motion.a>
+                ))}
+              </nav>
+
+              <div className="mt-6 border-t border-slate-200 pt-6">
+                <Button as="a" href="/AnkitResume.pdf" download>
+                  <span className="flex items-center gap-2">
+                    <span>📄</span>
+                    Download Resume
+                  </span>
+                </Button>
+              </div>
+
+              <div className="mt-auto text-xs text-slate-400">© {new Date().getFullYear()} Ankit Kumar</div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </AnimatePresence>
   );
 }
