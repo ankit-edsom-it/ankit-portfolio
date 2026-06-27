@@ -266,7 +266,7 @@ export default function Home() {
           >
             <div className="text-center">
               <div className="text-2xl font-bold text-sky-600">
-                <AnimatedCounter end={1} />+
+                <AnimatedCounter end={2} />+
               </div>
               <div className="text-sm text-slate-500">Years Experience</div>
             </div>

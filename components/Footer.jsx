@@ -5,7 +5,7 @@ export default function Footer(){
         <div>© {new Date().getFullYear()} Ankit Kumar</div>
         <div className="flex gap-3">
           <a href="https://linkedin.com/in/ankit-kumar-27-july" target="_blank" rel="noreferrer" className="hover:text-sky-600">LinkedIn</a>
-          <a href="https://github.com/ankit-kumar-it" target="_blank" rel="noreferrer" className="hover:text-sky-600">GitHub</a>
+          <a href="https://github.com/ankit-edsom-it" target="_blank" rel="noreferrer" className="hover:text-sky-600">GitHub</a>
         </div>
       </div>
     </footer>
